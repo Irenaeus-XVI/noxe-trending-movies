@@ -11,7 +11,7 @@ export default function Item({ data }) {
                         {data.overview.split(' ').splice(0, 15).join(' ')}
                     </div>
                 </div>
-                <h4>{data.title?data.title:data.name}</h4>
+                <h4>{data.title ? data.title : data.name}</h4>
                 <div className="vote bg-info p-2 position-absolute top-0 end-0">
                     {data.vote_average.toFixed(1)}
                 </div>
