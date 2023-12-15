@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './Components/Layout/Layout'
 import Home from './Components/Home/Home'
@@ -10,15 +10,31 @@ import People from './Components/People/People'
 import Network from './Components/Network/Network'
 import About from './Components/About/About'
 import NotFound from './Components/NotFound/NotFound'
+import { jwtDecode } from 'jwt-decode'
 
 export default function App() {
 
+  const [userData, setUserData] = useState(null)
+
+  function getUserData() {
+
+    let token = localStorage.getItem('token')
+    const decoded = jwtDecode(token)
+    setUserData(decoded)
+  }
+
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      getUserData()
+    }
+  }, [])
 
   const routers = createBrowserRouter([{
-    path: '', element: <Layout />, children: [
+    path: '', element: <Layout userData={userData} />, children: [
       { path: 'home', element: <Home /> },
       { path: 'register', element: <Register /> },
-      { path: 'login', element: <LogIn /> },
+      { path: 'login', element: <LogIn saveUser={getUserData} /> },
       { path: 'movies', element: <Movies /> },
       { path: 'tvShows', element: <TvShows /> },
       { path: 'people', element: <People /> },

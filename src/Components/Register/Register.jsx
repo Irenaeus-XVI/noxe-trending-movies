@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Joi from 'joi';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 export default function Register() {
     const initialUserData = {
         name: '',
@@ -43,10 +43,11 @@ export default function Register() {
                 }
             }
         } catch (error) {
-            setApiError(error.response.data.message)
+            setApiError(error.response.data.message ? error.response.data.message : error.response.data.errors.msg)
             setIsLoading(false)
-            // console.error('Error response:', error.response ? error.response.data : 'No response');
-            // console.error('Error:', error);
+            console.log(error.response.data);
+            // console.log('Error response:', error.response ? error.response.data : 'No response');
+            // console.log('Error:', error);
         }
     }
 
@@ -161,7 +162,7 @@ export default function Register() {
                     </div>
 
                     <button type="submit" className="btn btn-info">
-                        {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Sign Up'} 
+                        {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Sign Up'}
                     </button>
                 </form>
             </div>
