@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Item from '../Item/Item';
+import Loading from '../Loading/Loading';
+import DetectOffline from '../DetectOffline/DetectOffline';
+import { Offline } from 'react-detect-offline';
 export default function Movies() {
 
 
   const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
 
   async function getTrending() {
@@ -20,6 +24,7 @@ export default function Movies() {
     let { data } = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?language=en-US`, options)
     setMovies(data.results)
     console.log(data);
+    setIsLoading(false)
   }
 
 
@@ -33,16 +38,12 @@ export default function Movies() {
 
   return (
     <>
-
-
       <div className="container">
-        <div className="row">
+      <Offline><DetectOffline /></Offline>
 
-        
+        {isLoading ? <Loading /> : (<div className="row">
           {movies?.map((movie) => <Item data={movie} key={movie.id} />)}
-        </div>
-
-
+        </div>)}
 
 
       </div >
