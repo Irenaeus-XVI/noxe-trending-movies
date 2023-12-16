@@ -9,6 +9,7 @@ export default function Home() {
 
   const [movies, setMovies] = useState([])
   const [tvShows, setTvShow] = useState([])
+  const [peoples, setPeoples] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
 
@@ -22,30 +23,35 @@ export default function Home() {
       }
     };
 
+    try {
+      let { data } = await axios.get(`https://api.themoviedb.org/3/trending/${type}/day?language=en-US`, options)
+      dest(data.results)
+      setIsLoading(false)
+      // console.log(data.results, '-------');
+    } catch (error) {
+      console.log(error);
+    }
 
-    let { data } = await axios.get(`https://api.themoviedb.org/3/trending/${type}/day?language=en-US`, options)
-    dest(data.results)
-    setIsLoading(false)
-    console.log(data);
   }
 
 
   useEffect(() => {
     getTrending('movie', setMovies)
     getTrending('tv', setTvShow)
+    getTrending('person', setPeoples)
   }, [])
 
 
   return (
     <>
       <div className="container">
-      <Offline><DetectOffline /></Offline>
+        <Offline><DetectOffline /></Offline>
 
         {isLoading ? <Loading /> : <>
           <div className="row">
             <div className="col-md-4 ">
               <div className="content  d-flex justify-content-center h-100 flex-column ">
-                <h2 className='position-relative'>Trending <br /> Movies <br />To Watch</h2>
+                <h2 className='position-relative'>Trending <br /> Movies <br />To Watch Now</h2>
                 <p className=' '>Watch Them Now On Our App</p>
               </div>
             </div>
@@ -58,14 +64,28 @@ export default function Home() {
 
             <div className="col-md-4 ">
               <div className="content  d-flex justify-content-center h-100 flex-column ">
-                <h2 className='position-relative'>Trending <br /> Movies <br />To Watch</h2>
+                <h2 className='position-relative'>Trending <br /> TV <br />To Watch Now</h2>
                 <p className=' '>Watch Them Now On Our App</p>
               </div>
             </div>
             {tvShows?.slice(0, 10).map((tv) => <Item data={tv} key={tv.id} />)}
           </div>
 
+
+          <div className="row">
+
+            <div className="col-md-4 ">
+              <div className="content  d-flex justify-content-center h-100 flex-column ">
+                <h2 className='position-relative'>Trending <br /> People  <br />To Watch Now</h2>
+                <p className=' '>Watch Them Now On Our App</p>
+              </div>
+            </div>
+            {peoples?.slice(0, 10).map((person) => <Item data={person} key={person.id} />)}
+          </div>
+
         </>}
+
+
 
 
 

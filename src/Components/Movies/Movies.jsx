@@ -39,11 +39,14 @@ export default function Movies() {
   return (
     <>
       <div className="container">
-      <Offline><DetectOffline /></Offline>
+        <div className="row py-3">
+          <Offline><DetectOffline /></Offline>
 
-        {isLoading ? <Loading /> : (<div className="row">
-          {movies?.map((movie) => <Item data={movie} key={movie.id} />)}
-        </div>)}
+          {isLoading ? <Loading /> : (<div className="row">
+            {movies?.map((movie) => <Item data={movie} key={movie.id} />)}
+          </div>)}
+
+        </div>
 
 
       </div >

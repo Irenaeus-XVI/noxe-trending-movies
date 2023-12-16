@@ -11,6 +11,7 @@ import Network from './Components/Network/Network'
 import About from './Components/About/About'
 import NotFound from './Components/NotFound/NotFound'
 import { jwtDecode } from 'jwt-decode'
+import Details from './Components/Details/Details'
 
 export default function App() {
 
@@ -40,6 +41,7 @@ export default function App() {
       { path: 'people', element: <People /> },
       { path: 'network', element: <Network /> },
       { path: 'about', element: <About /> },
+      { path: 'details/:id/:type', element: <Details /> },
       { path: '*', element: <NotFound /> },
 
     ]
