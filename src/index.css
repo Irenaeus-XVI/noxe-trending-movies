@@ -120,3 +120,8 @@
   i:hover {
     cursor: pointer;
   }
+
+
+  input::placeholder {
+    color: white !important;
+  }

@@ -2,12 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Item({ data }) {
+    // console.log(data);
     const knownForTitle = data.known_for && data.known_for.length > 0 ? data.known_for[0].original_title : '';
     const basePath = 'https://image.tmdb.org/t/p/w500/';
+
+    // Infer media_type based on available properties
+    const isMovieOrTV = data.poster_path || data.backdrop_path;
+    const isPerson = data.profile_path;
+
+    // Construct imageUrl based on inferred media_type
     const imageUrl =
-        data.media_type === 'movie' || data.media_type === 'tv'
-            ? basePath + data.poster_path
-            : data.media_type === 'person'
+        isMovieOrTV
+            ? basePath + (data.poster_path || data.backdrop_path)
+            : isPerson
                 ? basePath + data.profile_path
                 : '';
 

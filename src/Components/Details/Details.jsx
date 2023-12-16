@@ -71,15 +71,15 @@ export default function Details() {
                         ) : type === 'person' ? (
                             <>
                                 <h1>{details?.name}  {details?.imdb_id && (
-                                 
-                                        <a href={`https://www.imdb.com/name/${details.imdb_id}/?ref_=fn_al_nm_1`} target="_blank" rel="noopener noreferrer" className=' text-info'>
-                                            <i className="fa-brands fa-imdb "> </i>
 
-                                        </a>
+                                    <a href={`https://www.imdb.com/name/${details.imdb_id}/?ref_=fn_al_nm_1`} target="_blank" rel="noopener noreferrer" className=' text-info'>
+                                        <i className="fa-brands fa-imdb "> </i>
 
-                                   
+                                    </a>
+
+
                                 )}</h1>
-                               
+
                                 <p>Birthday: {details?.birthday}</p>
 
                             </>

@@ -59,6 +59,7 @@ export default function NavBar({ userData, logOut }) {
               <ul className="navbar-nav  mb-2 mb-lg-0">
 
                 {userData ? <>
+
                   <li className="nav-item">
                     <span className="nav-link" onClick={logOut}>Logout</span>
                   </li>
