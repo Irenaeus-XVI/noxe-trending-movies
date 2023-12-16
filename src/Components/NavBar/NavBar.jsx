@@ -58,9 +58,14 @@ export default function NavBar({ userData, logOut }) {
 
               <ul className="navbar-nav  mb-2 mb-lg-0">
 
-                {userData ? <li className="nav-item">
-                  <span className="nav-link" onClick={logOut}>Logout</span>
-                </li> : <>
+                {userData ? <>
+                  <li className="nav-item">
+                    <span className="nav-link" onClick={logOut}>Logout</span>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={'/profile'}>{userData.name}</Link>
+                  </li>
+                </> : <>
                   <li className="nav-item">
                     <Link className="nav-link active" to={'register'}>Register</Link>
                   </li>
@@ -78,7 +83,7 @@ export default function NavBar({ userData, logOut }) {
 
           </div>
         </div>
-      </nav>
+      </nav >
 
     </>
   )

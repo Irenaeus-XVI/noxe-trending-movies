@@ -12,6 +12,7 @@ import About from './Components/About/About'
 import NotFound from './Components/NotFound/NotFound'
 import { jwtDecode } from 'jwt-decode'
 import Details from './Components/Details/Details'
+import Profile from './Components/Profile/Profile'
 
 export default function App() {
 
@@ -73,6 +74,12 @@ export default function App() {
         path: 'people', element:
           <ProtectedRoutes>
             <People />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'profile', element:
+          <ProtectedRoutes>
+            <Profile userData={userData} />
           </ProtectedRoutes>
       },
       {
