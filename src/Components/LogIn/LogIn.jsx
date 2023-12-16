@@ -3,6 +3,7 @@ import axios from 'axios';
 import Joi from 'joi';
 import { useNavigate } from 'react-router-dom'
 import { data } from 'jquery';
+import { Helmet } from 'react-helmet'
 export default function LogIn({ saveUser }) {
   const initialUserData = {
     email: '',
@@ -73,52 +74,60 @@ export default function LogIn({ saveUser }) {
     console.log(apiError);
   }, [apiError]);
   return (
-    <div className="container">
-      <div className="w-75 mx-auto">
-        <h2 className="mt-5 mb-4">Registration Form</h2>
-        {apiError && <div className='alert alert-danger'>{apiError}</div>}
-        <form onSubmit={handleSubmit}>
+
+    <>
+      <Helmet>
+        <title>Login Page | Noxe App</title>
+      </Helmet>
+      <div className="container">
+        <div className="w-75 mx-auto">
+          <h2 className="mt-5 mb-4">Registration Form</h2>
+          {apiError && <div className='alert alert-danger'>{apiError}</div>}
+          <form onSubmit={handleSubmit}>
 
 
-          <div className="form-group mb-3">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              className="form-control"
-              name="email"
-              onChange={handleChange}
-            />
-            {validationError.filter((ele) => ele.context.label === 'email').length > 0 && (
-              <div className='alert alert-danger'>
-                {validationError.filter((ele) => ele.context.label === 'email')[0]?.message}
-              </div>
-            )}
-          </div>
+            <div className="form-group mb-3">
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                className="form-control"
+                name="email"
+                onChange={handleChange}
+              />
+              {validationError.filter((ele) => ele.context.label === 'email').length > 0 && (
+                <div className='alert alert-danger'>
+                  {validationError.filter((ele) => ele.context.label === 'email')[0]?.message}
+                </div>
+              )}
+            </div>
 
-          <div className="form-group mb-3">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              name="password"
-              onChange={handleChange}
-            />
-            {validationError.filter((ele) => ele.context.label === 'password').length > 0 && (
-              <div className='alert alert-danger'>
-                {validationError.filter((ele) => ele.context.label === 'password')[0]?.message}
-              </div>
-            )}
-          </div>
+            <div className="form-group mb-3">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                name="password"
+                onChange={handleChange}
+              />
+              {validationError.filter((ele) => ele.context.label === 'password').length > 0 && (
+                <div className='alert alert-danger'>
+                  {validationError.filter((ele) => ele.context.label === 'password')[0]?.message}
+                </div>
+              )}
+            </div>
 
 
 
-          <button type="submit" className="btn btn-info">
-            {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Log In'}
-          </button>
-        </form>
+            <button type="submit" className="btn btn-info">
+              {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Log In'}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
+
+
   );
 }

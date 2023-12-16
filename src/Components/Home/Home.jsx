@@ -4,6 +4,7 @@ import axios from 'axios'
 import Loading from '../Loading/Loading'
 import DetectOffline from '../DetectOffline/DetectOffline'
 import { Offline } from 'react-detect-offline'
+import { Helmet } from 'react-helmet'
 export default function Home() {
 
 
@@ -44,6 +45,10 @@ export default function Home() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <div className="container">
         <Offline><DetectOffline /></Offline>
 

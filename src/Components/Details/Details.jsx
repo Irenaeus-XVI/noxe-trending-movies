@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import { Helmet } from 'react-helmet'
 export default function Details() {
     const { id, type } = useParams();
     const [details, setDetails] = useState({});
@@ -35,6 +35,9 @@ export default function Details() {
 
     return (
         <>
+            <Helmet>
+                <title className=' text-uppercase'>{`${details.name ? details.name : details.title} | ${type} DETAILS`}</title>
+            </Helmet>
             <div className="container py-5">
                 <div className="row">
                     <div className="col-md-3">

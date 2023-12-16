@@ -4,6 +4,7 @@ import Item from '../Item/Item';
 import Loading from '../Loading/Loading';
 import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
+import { Helmet } from 'react-helmet'
 export default function Movies() {
 
 
@@ -63,7 +64,9 @@ export default function Movies() {
 
   return (
     <>
-
+      <Helmet>
+        <title>Movies</title>
+      </Helmet>
       <div className="container">
         <div className="row py-3">
           <Offline><DetectOffline /></Offline>

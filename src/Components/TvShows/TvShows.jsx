@@ -4,7 +4,7 @@ import Item from '../Item/Item';
 import Loading from '../Loading/Loading';
 import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
-
+import { Helmet } from 'react-helmet'
 export default function TvShows() {
   const [tvShows, setTvShow] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +60,9 @@ export default function TvShows() {
 
   return (
     <>
+      <Helmet>
+        <title>TvShows</title>
+      </Helmet>
       <div className="container">
         <div className="row py-3">
           <Offline><DetectOffline /></Offline>
