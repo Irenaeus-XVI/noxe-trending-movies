@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
 import Layout from './Components/Layout/Layout'
 import Home from './Components/Home/Home'
 import Register from './Components/Register/Register'
@@ -16,9 +16,7 @@ import Details from './Components/Details/Details'
 export default function App() {
 
   const [userData, setUserData] = useState(null)
-
   function getUserData() {
-
     let token = localStorage.getItem('token')
     const decoded = jwtDecode(token)
     setUserData(decoded)
@@ -31,17 +29,70 @@ export default function App() {
     }
   }, [])
 
+
+
+  function ProtectedRoutes(props) {
+    if (localStorage.getItem('token')) {
+      return props.children
+    } else {
+      return <Navigate to={'/login'} />
+    }
+  }
+
+
+
+
+  function logOut() {
+    localStorage.removeItem('token')
+    setUserData(null)
+    return <Navigate to={'/login'} />
+  }
   const routers = createBrowserRouter([{
-    path: '', element: <Layout userData={userData} />, children: [
-      { path: 'home', element: <Home /> },
+    path: '', element: <Layout userData={userData} logOut={logOut} />, children: [
+      {
+        path: 'home', element:
+          <ProtectedRoutes>
+            <Home />
+          </ProtectedRoutes>
+      },
       { path: 'register', element: <Register /> },
       { path: 'login', element: <LogIn saveUser={getUserData} /> },
-      { path: 'movies', element: <Movies /> },
-      { path: 'tvShows', element: <TvShows /> },
-      { path: 'people', element: <People /> },
-      { path: 'network', element: <Network /> },
-      { path: 'about', element: <About /> },
-      { path: 'details/:id/:type', element: <Details /> },
+      {
+        path: 'movies', element:
+          <ProtectedRoutes>
+            <Movies />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'tvShows', element:
+          <ProtectedRoutes>
+            <TvShows />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'people', element:
+          <ProtectedRoutes>
+            <People />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'network', element:
+          <ProtectedRoutes>
+            <Network />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'about', element:
+          <ProtectedRoutes>
+            <About />
+          </ProtectedRoutes>
+      },
+      {
+        path: 'details/:id/:type', element:
+          <ProtectedRoutes>
+            <Details />
+          </ProtectedRoutes>
+      },
       { path: '*', element: <NotFound /> },
 
     ]

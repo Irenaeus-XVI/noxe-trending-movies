@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function NavBar({ userData }) {
+export default function NavBar({ userData, logOut }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-2">
@@ -59,7 +59,7 @@ export default function NavBar({ userData }) {
               <ul className="navbar-nav  mb-2 mb-lg-0">
 
                 {userData ? <li className="nav-item">
-                  <Link className="nav-link" to={'login'}>Logout</Link>
+                  <span className="nav-link" onClick={logOut}>Logout</span>
                 </li> : <>
                   <li className="nav-item">
                     <Link className="nav-link active" to={'register'}>Register</Link>
