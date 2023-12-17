@@ -6,7 +6,7 @@ export default function NavBar({ userData, logOut }) {
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-2">
         <div className="container-fluid  ">
-          <Link className="navbar-brand" to={'home'}>Noxe</Link>
+          <Link className="navbar-brand" to={''}>Noxe</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

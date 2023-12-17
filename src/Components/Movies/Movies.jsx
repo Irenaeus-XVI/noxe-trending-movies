@@ -61,8 +61,12 @@ export default function Movies() {
           <input onChange={search} type="text" className='form-control  mb-5 bg-dark text-white' placeholder='Search...' />
 
           {isLoading ? <Loading /> : (<div className="row">
-            {mediaData?.map((movie) => <Item data={movie} key={movie.id} />)}
-          </div>)}
+            {mediaData.length ? (mediaData.map((movie) => <Item data={movie} key={movie.id} />)) : (<>
+              <div className="d-flex justify-content-center align-items-center ">
+                <i className="fa-solid fa-ban fa-beat-fade fa-2xl "></i>
+                <h2>No Data Found...</h2>
+              </div>
+            </>)}          </div>)}
         </div>
       </div>
     </>

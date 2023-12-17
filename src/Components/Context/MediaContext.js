@@ -30,9 +30,9 @@ export const MediaProvider = ({ children }) => {
         }
     };
 
-    // useEffect(() => {
-    //     fetchMediaData();
-    // }, []);
+    useEffect(() => {
+        console.log(mediaData);
+    }, [mediaData]);
 
     return (
         <MediaContext.Provider value={{ mediaData, isLoading, setIsLoading, setMediaData, fetchMediaData }}>

@@ -70,7 +70,12 @@ export default function TvShows() {
           <input onChange={search} type="text" className='form-control  mb-5 bg-dark text-white' placeholder='Search...' />
 
           {isLoading ? <Loading /> : (<div className="row">
-            {mediaData?.map((tvShow) => <Item data={tvShow} key={tvShow.id} />)}
+            {mediaData.length ? (mediaData.map((movie) => <Item data={movie} key={movie.id} />)) : (<>
+              <div className="d-flex justify-content-center align-items-center ">
+                <i className="fa-solid fa-ban fa-beat-fade fa-2xl m-0"></i>
+                <h2>No Data Found...</h2>
+              </div>
+            </>)}
           </div>)}
         </div>
       </div >
