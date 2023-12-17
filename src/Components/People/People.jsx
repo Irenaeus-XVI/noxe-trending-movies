@@ -29,6 +29,8 @@ export default function People() {
     const inputValue = e.target.value.trim();
     if (inputValue === '') {
       fetchMediaData('person');
+      setSearchQuery('')
+
     } else {
       setSearchQuery(inputValue)
       searchMedia('person', inputValue);

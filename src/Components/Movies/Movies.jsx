@@ -28,6 +28,7 @@ export default function Movies() {
     const inputValue = e.target.value.trim();
     if (inputValue === '') {
       fetchMediaData('movie');
+      setSearchQuery('')
     } else {
       setSearchQuery(inputValue)
       searchMedia('movie', inputValue);

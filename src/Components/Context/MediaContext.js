@@ -8,7 +8,7 @@ export const MediaProvider = ({ children }) => {
     const [mediaData, setMediaData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchMediaData = async (mediaType = 'all', page = 1) => {
+    const fetchMediaData = async (mediaType, page = 1) => {
         try {
             const options = {
                 method: 'GET',

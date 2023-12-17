@@ -29,6 +29,7 @@ export default function TvShows() {
     const inputValue = e.target.value.trim();
     if (inputValue === '') {
       fetchMediaData('tv');
+      setSearchQuery('')
     } else {
       setSearchQuery(inputValue)
       searchMedia('tv', inputValue);
