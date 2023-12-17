@@ -28,7 +28,7 @@ export const SearchProvider = ({ children }) => {
 
             setMediaData(data.results.map((result) => ({ ...result, media_type: mediaType })));
             setIsLoading(false);
-            console.log(mediaType, query, data);
+            // console.log(mediaType, query, data);
         } catch (error) {
             console.error('Error searching media:', error);
             setIsLoading(false);

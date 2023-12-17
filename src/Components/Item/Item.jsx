@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Item({ data }) {
-    // console.log(data);
+    console.log(data);
     const knownForTitle = data.known_for && data.known_for.length > 0 ? data.known_for[0].original_title : '';
     const basePath = 'https://image.tmdb.org/t/p/w500/';
 

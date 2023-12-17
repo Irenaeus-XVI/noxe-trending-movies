@@ -52,7 +52,6 @@ export default function Details() {
 
                                         <a href={`https://www.imdb.com/title/${details.imdb_id}/?ref_=nv_sr_srsg_0_tt_8_nm_0_q_The%2520Family%2520Plan`} target="_blank" rel="noopener noreferrer" className=' text-info'>
                                             <i className="fa-brands fa-imdb "> </i>
-
                                         </a>
 
 
@@ -77,7 +76,6 @@ export default function Details() {
 
                                     <a href={`https://www.imdb.com/name/${details.imdb_id}/?ref_=fn_al_nm_1`} target="_blank" rel="noopener noreferrer" className=' text-info'>
                                         <i className="fa-brands fa-imdb "> </i>
-
                                     </a>
 
 
