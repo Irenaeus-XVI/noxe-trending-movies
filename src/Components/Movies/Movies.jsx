@@ -1,74 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react';
 import Item from '../Item/Item';
 import Loading from '../Loading/Loading';
 import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
 import { useMediaContext } from '../Context/MediaContext';
+import { useSearchContext } from '../Context/SearchContext';
+
 export default function Movies() {
+  const { mediaData, isLoading, fetchMediaData } = useMediaContext();
+  const { searchMedia, searchQuery, setSearchQuery } = useSearchContext();
+  const pagesList = new Array(10).fill().map((ele, index) => index + 1);
 
-
-  // const [movies, setMovies] = useState([])
-  // const [isLoading, setIsLoading] = useState(true)
-
-  const { mediaData, isLoading, setIsLoading, setMediaData, fetchMediaData } = useMediaContext();
-  const pagesList = new Array(10).fill().map((ele, index) => index + 1)
-
-  // async function getTrending(page) {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       accept: 'application/json',
-  //       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
-  //     }
-  //   };
-
-  //   setIsLoading(true)
-  //   let { data } = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${page || 1}`, options)
-  //   setMovies(data.results)
-  //   // console.log(data);
-  //   setIsLoading(false)
-  // }
-
-
-  // useEffect(() => {
-  //   getTrending()
-  // }, [])
 
 
   function onPagination(page) {
-    console.log(page);
-    fetchMediaData('movie', page)
-  }
-
-  
-  async function search(e) {
-    const inputValue = e.target.value.trim(); // Trim to handle whitespace
-    if (inputValue === '') {
-      // Call trending API when input is empty
-      fetchMediaData();
+    if (searchQuery) {
+      // If there is an active search, use searchMedia with the existing query
+      searchMedia('movie', searchQuery, page);
     } else {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
-        }
-      };
-
-      setIsLoading(true);
-      let { data } = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${inputValue}&include_adult=false&language=en-US&page=1`, options);
-      setMediaData(data.results.map((tvShow) => ({ ...tvShow, media_type: 'movie' })));
-      console.log(data.results);
-      setIsLoading(false);
+      // Otherwise, use fetchMediaData for trending movies
+      fetchMediaData('movie', page);
     }
   }
 
-  useEffect(() => {
-    fetchMediaData('movie')
-  }, [])
+  const search = (e) => {
+    const inputValue = e.target.value.trim();
+    if (inputValue === '') {
+      fetchMediaData('movie');
+    } else {
+      setSearchQuery(inputValue)
+      searchMedia('movie', inputValue);
 
+    }
+  };
+
+  useEffect(() => {
+    fetchMediaData('movie');
+  }, []);
+
+  
   return (
     <>
       <Helmet>
@@ -84,7 +55,6 @@ export default function Movies() {
                   <span className="page-link" >{ele}</span>
                 </li>
               ))}
-
             </ul>
           </nav>
           <input onChange={search} type="text" className='form-control  mb-5 bg-dark text-white' placeholder='Search...' />
@@ -92,11 +62,8 @@ export default function Movies() {
           {isLoading ? <Loading /> : (<div className="row">
             {mediaData?.map((movie) => <Item data={movie} key={movie.id} />)}
           </div>)}
-
         </div>
-
-
-      </div >
+      </div>
     </>
-  )
+  );
 }

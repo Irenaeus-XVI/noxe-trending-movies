@@ -14,6 +14,8 @@ import { jwtDecode } from 'jwt-decode'
 import Details from './Components/Details/Details'
 import Profile from './Components/Profile/Profile'
 import { MediaProvider } from './Components/Context/MediaContext'
+import { HomeProvider } from './Components/Context/HomeContext'
+import { SearchProvider } from './Components/Context/SearchContext'
 
 export default function App() {
 
@@ -108,9 +110,14 @@ export default function App() {
   return (
 
     <>
-      <MediaProvider>
-        <RouterProvider router={routers}></RouterProvider>
-      </MediaProvider>
+      <HomeProvider>
+        <MediaProvider>
+          <SearchProvider>
+            <RouterProvider router={routers}></RouterProvider>
+          </SearchProvider>
+        </MediaProvider>
+      </HomeProvider>
+
     </>
   )
 }

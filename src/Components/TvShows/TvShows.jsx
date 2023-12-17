@@ -62,7 +62,7 @@ export default function TvShows() {
     fetchMediaData('tv');
   }, []);
 
-  
+
   function onPagination(page) {
     console.log(page);
     fetchMediaData('tv', page);
