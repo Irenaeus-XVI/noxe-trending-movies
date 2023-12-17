@@ -35,7 +35,7 @@ export const MediaProvider = ({ children }) => {
     }, []);
 
     return (
-        <MediaContext.Provider value={{ mediaData, isLoading,setIsLoading,setMediaData, fetchMediaData }}>
+        <MediaContext.Provider value={{ mediaData, isLoading, setIsLoading, setMediaData, fetchMediaData }}>
             {children}
         </MediaContext.Provider>
     );
