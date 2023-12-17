@@ -13,6 +13,7 @@ import NotFound from './Components/NotFound/NotFound'
 import { jwtDecode } from 'jwt-decode'
 import Details from './Components/Details/Details'
 import Profile from './Components/Profile/Profile'
+import { MediaProvider } from './Components/Context/MediaContext'
 
 export default function App() {
 
@@ -51,7 +52,7 @@ export default function App() {
   const routers = createBrowserRouter([{
     path: '', element: <Layout userData={userData} logOut={logOut} />, children: [
       {
-        path: 'home', element:
+        index: true, element:
           <ProtectedRoutes>
             <Home />
           </ProtectedRoutes>
@@ -107,8 +108,9 @@ export default function App() {
   return (
 
     <>
-
-      <RouterProvider router={routers}></RouterProvider>
+      <MediaProvider>
+        <RouterProvider router={routers}></RouterProvider>
+      </MediaProvider>
     </>
   )
 }
