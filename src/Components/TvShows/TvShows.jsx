@@ -5,33 +5,42 @@ import Loading from '../Loading/Loading';
 import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
 import { Helmet } from 'react-helmet'
+import { useMediaContext } from '../Context/MediaContext';
 export default function TvShows() {
-  const [tvShows, setTvShow] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [tvShows, setTvShow] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const pagesList = new Array(10).fill().map((ele, index) => index + 1);
 
-  async function getTrending(page) {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
-      }
-    };
+  const { mediaData, isLoading, setIsLoading, setMediaData, fetchMediaData } = useMediaContext();
 
-    setIsLoading(true);
-    let { data } = await axios.get(`https://api.themoviedb.org/3/trending/tv/day?language=en-US&page=${page || 1}`, options);
-    setTvShow(data.results);
-    console.log(data);
-    setIsLoading(false);
-  }
+
+
+
+  // async function getTrending(page) {
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       accept: 'application/json',
+  //       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
+  //     }
+  //   };
+
+  //   setIsLoading(true);
+  //   let { data } = await axios.get(`https://api.themoviedb.org/3/trending/tv/day?language=en-US&page=${page || 1}`, options);
+  //   setTvShow(data.results);
+  //   console.log(data);
+  //   setIsLoading(false);
+  // }
+
+
+
 
   async function search(e) {
     const inputValue = e.target.value.trim(); // Trim to handle whitespace
     if (inputValue === '') {
       // Call trending API when input is empty
-      getTrending();
+      fetchMediaData('tv');
     } else {
       const options = {
         method: 'GET',
@@ -43,19 +52,20 @@ export default function TvShows() {
 
       setIsLoading(true);
       let { data } = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${inputValue}&include_adult=false&language=en-US&page=1`, options);
-      setTvShow(data.results.map((tvShow) => ({ ...tvShow, media_type: 'tv' })));
+      setMediaData(data.results.map((tvShow) => ({ ...tvShow, media_type: 'tv' })));
       console.log(data.results);
       setIsLoading(false);
     }
   }
 
   useEffect(() => {
-    getTrending();
+    fetchMediaData('tv');
   }, []);
 
+  
   function onPagination(page) {
     console.log(page);
-    getTrending(page);
+    fetchMediaData('tv', page);
   }
 
   return (
@@ -78,7 +88,7 @@ export default function TvShows() {
           <input onChange={search} type="text" className='form-control  mb-5 bg-dark text-white' placeholder='Search...' />
 
           {isLoading ? <Loading /> : (<div className="row">
-            {tvShows?.map((tvShow) => <Item data={tvShow} key={tvShow.id} />)}
+            {mediaData?.map((tvShow) => <Item data={tvShow} key={tvShow.id} />)}
           </div>)}
         </div>
       </div >
