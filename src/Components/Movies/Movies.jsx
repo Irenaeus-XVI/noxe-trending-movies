@@ -39,7 +39,7 @@ export default function Movies() {
     fetchMediaData('movie');
   }, []);
 
-  
+
   return (
     <>
       <Helmet>

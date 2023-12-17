@@ -6,67 +6,49 @@ import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
 import { Helmet } from 'react-helmet'
 import { useMediaContext } from '../Context/MediaContext';
+import { useSearchContext } from '../Context/SearchContext';
 export default function TvShows() {
-  // const [tvShows, setTvShow] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
 
+
+  const { mediaData, isLoading, fetchMediaData } = useMediaContext();
+  const { searchMedia, searchQuery, setSearchQuery } = useSearchContext();
   const pagesList = new Array(10).fill().map((ele, index) => index + 1);
 
-  const { mediaData, isLoading, setIsLoading, setMediaData, fetchMediaData } = useMediaContext();
 
 
-
-
-  // async function getTrending(page) {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       accept: 'application/json',
-  //       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
-  //     }
-  //   };
-
-  //   setIsLoading(true);
-  //   let { data } = await axios.get(`https://api.themoviedb.org/3/trending/tv/day?language=en-US&page=${page || 1}`, options);
-  //   setTvShow(data.results);
-  //   console.log(data);
-  //   setIsLoading(false);
-  // }
-
-
-
-
-  async function search(e) {
-    const inputValue = e.target.value.trim(); // Trim to handle whitespace
-    if (inputValue === '') {
-      // Call trending API when input is empty
-      fetchMediaData('tv');
+  function onPagination(page) {
+    if (searchQuery) {
+      // If there is an active search, use searchMedia with the existing query
+      searchMedia('tv', searchQuery, page);
     } else {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2NhMTY0YWIwYWI0YTY5ZTQ5NTk4Y2UzNjkxZWY4ZSIsInN1YiI6IjY0MzVlYjkwOWFjNTM1MDA5ZDM3Yzg3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yJl7Xv--ydm8fJn9K3DkR2Op7DE9FnwVFJa16eB1myU'
-        }
-      };
-
-      setIsLoading(true);
-      let { data } = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${inputValue}&include_adult=false&language=en-US&page=1`, options);
-      setMediaData(data.results.map((tvShow) => ({ ...tvShow, media_type: 'tv' })));
-      console.log(data.results);
-      setIsLoading(false);
+      // Otherwise, use fetchMediaData for trending movies
+      fetchMediaData('tv', page);
     }
   }
+
+  const search = (e) => {
+    const inputValue = e.target.value.trim();
+    if (inputValue === '') {
+      fetchMediaData('tv');
+    } else {
+      setSearchQuery(inputValue)
+      searchMedia('tv', inputValue);
+
+    }
+  };
+
+
+
+
+
+
+
 
   useEffect(() => {
     fetchMediaData('tv');
   }, []);
 
 
-  function onPagination(page) {
-    console.log(page);
-    fetchMediaData('tv', page);
-  }
 
   return (
     <>
