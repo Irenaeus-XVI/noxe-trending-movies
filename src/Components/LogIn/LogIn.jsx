@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Joi from 'joi';
-import { useNavigate } from 'react-router-dom'
-import { data } from 'jquery';
+import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 export default function LogIn({ saveUser }) {
   const initialUserData = {
@@ -120,9 +119,13 @@ export default function LogIn({ saveUser }) {
 
 
 
-            <button type="submit" className="btn btn-info">
-              {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Log In'}
-            </button>
+            <div className="d-flex justify-content-between align-items-center ">
+              <button type="submit" className="btn btn-info">
+                {isLoading ? <i className='fa fa-spinner fa-spin'></i> : 'Log In'}
+              </button>
+
+              <Link to={'/register'} className='nav-link '> If You Don't Have An Account, <span className='text-info fw-bold'>Sign Up</span></Link>
+            </div>
           </form>
         </div>
       </div>
