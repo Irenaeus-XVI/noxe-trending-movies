@@ -37,7 +37,7 @@ export default function LogIn({ saveUser }) {
           localStorage.setItem('token', response.data.token)
           saveUser()
           //TODO - Navigate To Login
-          navigate('/home')
+          navigate('/')
           setApiError(null)
           setIsLoading(false)
         }
