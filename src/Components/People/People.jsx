@@ -5,6 +5,8 @@ import DetectOffline from '../DetectOffline/DetectOffline';
 import { Offline } from 'react-detect-offline';
 import { useMediaContext } from '../Context/MediaContext';
 import { useSearchContext } from '../Context/SearchContext';
+import { Helmet } from 'react-helmet'
+
 export default function People() {
 
 
@@ -48,6 +50,9 @@ export default function People() {
 
   return (
     <>
+     <Helmet>
+        <title>People</title>
+      </Helmet>
       <div className="container">
         <div className="row py-3">
           <Offline><DetectOffline /></Offline>
