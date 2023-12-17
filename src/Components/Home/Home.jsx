@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
 import Item from '../Item/Item'
-import axios from 'axios'
 import Loading from '../Loading/Loading'
 import DetectOffline from '../DetectOffline/DetectOffline'
 import { Offline } from 'react-detect-offline'

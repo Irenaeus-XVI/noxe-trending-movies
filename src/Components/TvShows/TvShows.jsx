@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import Item from '../Item/Item';
 import Loading from '../Loading/Loading';
 import DetectOffline from '../DetectOffline/DetectOffline';
